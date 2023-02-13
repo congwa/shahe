@@ -17,9 +17,9 @@ console.log(data)
 const token =
   "MzI5ZTcwNWQtMWNlMS00NDQ3LWE2ZjMtMjE0NmVmMWJiNjViLDE2NzY5MDkxMzc2NjksVWU1QUZhbXhFRGdEUVZvd0NGS2xiNFZjbkhjPQ==";
 const currentDate = getDate();
-// const timeSlot = "0820-0830"
+const timeSlot = "0820-0830"
 
-const timeSlot = "0630-0640"
+// const timeSlot = "0630-0640"
 
 
 const row = {
