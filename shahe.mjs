@@ -2,7 +2,7 @@
 
 
 
-function getDate(day = 1) { 
+function getDate(day = 1) {
   var dd = new Date();
   dd.setDate(dd.getDate() + day);
   var y = dd.getFullYear();
@@ -17,7 +17,11 @@ console.log(data)
 const token =
   "MzI5ZTcwNWQtMWNlMS00NDQ3LWE2ZjMtMjE0NmVmMWJiNjViLDE2NzY5MDkxMzc2NjksVWU1QUZhbXhFRGdEUVZvd0NGS2xiNFZjbkhjPQ==";
 const currentDate = getDate();
-const timeSlot = "0820-0830"
+// const timeSlot = "0820-0830"
+
+const timeSlot = "0630-0640"
+
+
 const row = {
   "lineName": "昌平线",
   "snapshotWeekOffset": 0,
@@ -33,11 +37,23 @@ const sleepTime = 30 * 1000
 const maxIndex = 10
 
 
+const fetchFeishu = async () => {
+  await fetch('https://open.feishu.cn/open-apis/bot/v2/hook/91f21950-26af-4c5c-bd86-1030d5b735ac', {
+    method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "msg_type": "text",
+      "content": {
+        "text": currentDate + '预约进站成功'
+      }
+    })
+  })
+}
 
 const fetchEnd = async () => {
   let index = 0
   const fetchS = async () => {
-    index++ 
+    index++
     const response = await fetch(
       "https://webapi.mybti.cn/Appointment/CreateAppointment",
       {
@@ -64,14 +80,15 @@ const fetchEnd = async () => {
       const json = await response.clone().json();
       console.log(json)
       if (json.stationEntrance) {
+        await fetchFeishu()
       } else {
-        if(index < maxIndex) {
+        if (index < maxIndex) {
           await sleep(sleepTime)
           await fetchS()
         }
       }
     } else {
-      if(index < maxIndex) {
+      if (index < maxIndex) {
         await sleep(sleepTime)
         await fetchS()
       }
