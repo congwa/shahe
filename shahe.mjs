@@ -50,6 +50,19 @@ const fetchFeishu = async () => {
   })
 }
 
+const fetchFeishuFail = async () => {
+  await fetch('https://open.feishu.cn/open-apis/bot/v2/hook/91f21950-26af-4c5c-bd86-1030d5b735ac', {
+    method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      "msg_type": "text",
+      "content": {
+        "text": currentDate + '预约失败'
+      }
+    })
+  })
+}
+
 const fetchEnd = async () => {
   let index = 0
   console.log('\n')
@@ -83,12 +96,14 @@ const fetchEnd = async () => {
       if (json.stationEntrance) {
         await fetchFeishu()
       } else {
+        await fetchFeishuFail()
         if (index < maxIndex) {
           await sleep(sleepTime)
           await fetchS()
         }
       }
     } else {
+      await fetchFeishuFail()
       if (index < maxIndex) {
         await sleep(sleepTime)
         await fetchS()
