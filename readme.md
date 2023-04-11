@@ -13,6 +13,19 @@
 
 ## 使用
 
+### 安装
+
+```js
+// 安装node.js  mac  linux或者其它操作系统请自行百度
+
+brew install node.js
+
+// 安装 zx
+
+npm install -g zx
+
+```
+
 ### crontab配置
 
 ```js
